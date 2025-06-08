@@ -1,0 +1,8 @@
+{
+  "ignoreCommand": "true",
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }
+}
