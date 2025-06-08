@@ -1,5 +1,5 @@
 {
-  "ignoreCommand": "true",
+  "ignoreCommand": "echo Skipping Sanity build",
   "build": {
     "env": {
       "NODE_ENV": "production"
