@@ -25,11 +25,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={inter.className}>
       <body className='bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans'>
-        <CartProvider>
-          {children}
-          <Footer />
-        </CartProvider>
         <Navbar />
+        <CartProvider>{children}</CartProvider>
+
+        <Footer />
       </body>
     </html>
   );
