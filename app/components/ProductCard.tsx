@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-type ProductCardProps = {
-  id: string;
+export type ProductCardProps = {
+  _id: string;
   name: string;
   image?: string;
   price: number;
@@ -13,14 +13,15 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({
-  id,
+  _id,
   name,
   image,
   price
 }: ProductCardProps) {
   return (
     <Link
-      href={`/product/${id}`}
+      key={_id}
+      href={`/product/${_id}`}
       className='group border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition'>
       <div className='relative w-full aspect-square bg-gray-100'>
         <Image
