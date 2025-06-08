@@ -4,19 +4,19 @@ const dummyProducts = [
   {
     id: 'ghrp-6',
     name: 'GHRP-6 Peptide',
-    image: 'https://placehold.co/300x300?text=BPC-157',
+    image: '/products/b157.jpg',
     price: 29.99
   },
   {
     id: 'cjc-1295',
     name: 'CJC-1295 DAC',
-    image: 'https://placehold.co/300x300?text=BPC-157',
+    image: '/products/b157.jpg',
     price: 34.99
   },
   {
     id: 'bpc-157',
     name: 'BPC-157',
-    image: 'https://placehold.co/300x300?text=BPC-157',
+    image: '/products/b157.jpg',
     price: 39.99
   }
 ];

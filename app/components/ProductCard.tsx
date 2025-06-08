@@ -6,8 +6,10 @@ import Link from 'next/link';
 type ProductCardProps = {
   id: string;
   name: string;
-  image: string;
+  image?: string;
   price: number;
+  description?: string;
+  category?: string;
 };
 
 export default function ProductCard({
@@ -22,7 +24,7 @@ export default function ProductCard({
       className='group border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition'>
       <div className='relative w-full aspect-square bg-gray-100'>
         <Image
-          src={image}
+          src={image ?? '/placeholder.png'}
           alt={name}
           fill
           className='object-cover group-hover:scale-105 transition-transform duration-300'

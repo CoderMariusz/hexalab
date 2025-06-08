@@ -3,6 +3,7 @@
 import './globals.css';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
+import { CartProvider } from '@/app/context/CartContext';
 
 // app/layout.tsx
 import { Inter } from 'next/font/google';
@@ -24,9 +25,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={inter.className}>
       <body className='bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans'>
+        <CartProvider>
+          {children}
+          <Footer />
+        </CartProvider>
         <Navbar />
-        {children}
-        <Footer />
       </body>
     </html>
   );
