@@ -49,6 +49,7 @@ export default function ProductsPage() {
           <ProductCard
             key={product._id}
             _id={product._id}
+            slug={product.slug}
             name={product.name}
             category={product.category}
             price={product.price}

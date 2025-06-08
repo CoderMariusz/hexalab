@@ -7,3 +7,9 @@ export interface ProductType {
   image?: string;
   category?: string;
 }
+
+export interface CheckoutItem {
+  name: string;
+  price: number;
+  quantity: number;
+}

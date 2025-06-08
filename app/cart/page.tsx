@@ -6,6 +6,19 @@ import Image from 'next/image';
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();
 
+  const handleCheckout = async () => {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart })
+    });
+
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  };
+
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   if (cart.length === 0) {
@@ -45,7 +58,12 @@ export default function CartPage() {
 
       <div className='mt-10 text-right'>
         <p className='text-xl font-semibold mb-4'>Total: £{total.toFixed(2)}</p>
-        <button className='bg-primary text-white px-6 py-2 rounded hover:bg-blue-700 transition'>
+        <p className='text-sm text-gray-600 mb-6'>
+          Shipping and taxes calculated at checkout.
+        </p>
+        <button
+          onClick={handleCheckout}
+          className='bg-blue-300 text-white px-6 py-2 rounded hover:bg-blue-700 transition'>
           Proceed to Checkout
         </button>
       </div>
