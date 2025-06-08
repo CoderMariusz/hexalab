@@ -2,7 +2,7 @@
   "build": {
     "env": {
       "NODE_ENV": "production"
-    }
-  },
-  "ignore": ["sanity/**"]
+    },
+    "ignoreCommand": "echo Skipping Sanity build"
+  }
 }
