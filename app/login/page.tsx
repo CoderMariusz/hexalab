@@ -17,13 +17,23 @@ export default function LoginPage() {
       redirect: false
     });
 
-    if (res?.ok) router.push('/orders');
-    else alert('Invalid credentials');
+    if (res?.ok) {
+      router.push('/orders');
+    } else {
+      alert('Invalid credentials');
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    await signIn('google', {
+      callbackUrl: '/orders'
+    });
   };
 
   return (
     <main className='max-w-md mx-auto p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Login</h1>
+      <h1 className='text-2xl font-bold mb-6 text-center'>Log in to HexaLab</h1>
+
       <form
         onSubmit={handleLogin}
         className='space-y-4'>
@@ -43,10 +53,18 @@ export default function LoginPage() {
         />
         <button
           type='submit'
-          className='bg-blue-600 text-white px-4 py-2 rounded'>
-          Login
+          className='w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded'>
+          Login with Email
         </button>
       </form>
+
+      <div className='text-center my-4 text-gray-500'>or</div>
+
+      <button
+        onClick={handleGoogleLogin}
+        className='w-full border px-4 py-2 rounded hover:bg-gray-100'>
+        Continue with Google
+      </button>
     </main>
   );
 }
