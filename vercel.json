@@ -3,6 +3,6 @@
     "env": {
       "NODE_ENV": "production"
     },
-    "ignoreCommand": "echo Skipping Sanity build"
+    "ignoreCommand": "true"
   }
 }
