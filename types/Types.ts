@@ -28,3 +28,16 @@ export interface Order {
   userEmail?: string;
   status?: 'Order' | 'Paid' | 'Canceled';
 }
+
+export type UserProfileType = {
+  _id?: string;
+  _type?: 'userProfile';
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone?: string;
+};

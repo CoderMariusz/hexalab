@@ -1,29 +1,9 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await signIn('credentials', {
-      email,
-      password,
-      redirect: false
-    });
-
-    if (res?.ok) {
-      router.push('/orders');
-    } else {
-      alert('Invalid credentials');
-    }
-  };
-
+  const session = useSession(); // Placeholder for session, can be used if needed
   const handleGoogleLogin = async () => {
     await signIn('google', {
       callbackUrl: '/orders'
@@ -34,37 +14,28 @@ export default function LoginPage() {
     <main className='max-w-md mx-auto p-6'>
       <h1 className='text-2xl font-bold mb-6 text-center'>Log in to HexaLab</h1>
 
-      <form
-        onSubmit={handleLogin}
-        className='space-y-4'>
-        <input
-          type='email'
-          placeholder='Email'
-          className='w-full p-2 border rounded'
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          className='w-full p-2 border rounded'
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      {session.status === 'authenticated' && (
+        <div className=' flex flex-col gap-2 text-center mb-4'>
+          <p className='text-green-600'>You are already logged in!</p>
+          <button
+            onClick={() => signIn('google', { callbackUrl: '/orders' })}
+            className='mt-2 inline-block bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded hover:bg-blue-200 transition-colors duration-200'>
+            Go to your orders
+          </button>
+          <button
+            onClick={() => signIn('google', { callbackUrl: '/profile' })}
+            className='mt-2 inline-block bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded hover:bg-blue-200 transition-colors duration-200'>
+            Go to your Profile
+          </button>
+        </div>
+      )}
+      {session.status !== 'authenticated' && (
         <button
-          type='submit'
-          className='w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded'>
-          Login with Email
+          onClick={handleGoogleLogin}
+          className='w-full border px-4 py-2 rounded hover:bg-gray-100'>
+          Continue with Google
         </button>
-      </form>
-
-      <div className='text-center my-4 text-gray-500'>or</div>
-
-      <button
-        onClick={handleGoogleLogin}
-        className='w-full border px-4 py-2 rounded hover:bg-gray-100'>
-        Continue with Google
-      </button>
+      )}
     </main>
   );
 }

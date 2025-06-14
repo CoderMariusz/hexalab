@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function Navbar() {
+  const { data: session } = useSession();
   return (
     <header className='w-full border-b shadow-sm'>
       {/* Górna linia */}
@@ -37,22 +39,50 @@ export default function Navbar() {
 
       {/* Dolna linia */}
       <nav className='bg-blue-400 text-blue-900 text-sm font-medium flex justify-center align-middle'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 py-2 '>
-          <Link
-            href='/products'
-            className='hover:underline hover:text-blue-200 transition-colors'>
-            Products
-          </Link>
-          <Link
-            href='/contact'
-            className='hover:underline'>
-            Contact
-          </Link>
-          <Link
-            href='/about'
-            className='hover:underline'>
-            About
-          </Link>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 py-2 items-center justify-between'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 py-2'>
+            <Link
+              href='/products'
+              className='hover:underline hover:text-blue-200 transition-colors'>
+              Products
+            </Link>
+            <Link
+              href='/contact'
+              className='hover:underline'>
+              Contact
+            </Link>
+            <Link
+              href='/about'
+              className='hover:underline'>
+              About
+            </Link>
+          </div>
+          {session ? (
+            <>
+              <Link
+                href='/orders'
+                className='hover:underline'>
+                Orders
+              </Link>
+              <Link
+                href='/profile'
+                className='hover:underline'>
+                Profile
+              </Link>
+              <Link href='/orders'>Orders</Link>
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className='text-red-600 hover:underline'>
+                Log out
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => signIn('google', { callbackUrl: '/login' })}
+              className='text-blue-600 hover:underline'>
+              Log in
+            </button>
+          )}
         </div>
       </nav>
     </header>

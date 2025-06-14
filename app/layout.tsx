@@ -1,5 +1,4 @@
 // app/layout.tsx
-
 import './globals.css';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
@@ -7,6 +6,7 @@ import { CartProvider } from '@/app/context/CartContext';
 
 // app/layout.tsx
 import { Inter } from 'next/font/google';
+import { Providers } from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -25,10 +25,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={inter.className}>
       <body className='bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans'>
-        <Navbar />
-        <CartProvider>{children}</CartProvider>
+        <Providers>
+          <Navbar />
+          <CartProvider>{children}</CartProvider>
 
-        <Footer />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
