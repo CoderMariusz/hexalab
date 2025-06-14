@@ -3,9 +3,12 @@
 import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const { cart } = useCart();
+  const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <header className='w-full border-b shadow-sm'>
       {/* Górna linia */}
@@ -31,9 +34,11 @@ export default function Navbar() {
           href='/cart'
           className='relative'>
           <ShoppingCart className='w-6 h-6 text-gray-700 hover:text-primary' />
-          <span className='absolute -top-2 -right-2 bg-primary text-white text-xs font-bold rounded-full px-1.5'>
-            0
-          </span>
+          {totalQty > 0 && (
+            <span className='absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold rounded-full px-1.5'>
+              {totalQty}
+            </span>
+          )}
         </Link>
       </div>
 
@@ -69,7 +74,6 @@ export default function Navbar() {
                 className='hover:underline'>
                 Profile
               </Link>
-              <Link href='/orders'>Orders</Link>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className='text-red-600 hover:underline'>

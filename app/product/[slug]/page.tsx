@@ -7,6 +7,7 @@ import { ProductType } from '@/types/Types';
 import { useEffect, useState } from 'react';
 import { productsQuery } from '@/lib/queries';
 import { sanityClient } from '@/lib/sanityClient';
+import Breadcrumbs from '@/app/components/BreadCrumbs';
 
 export default function ProductPage() {
   const params = useParams(); // useParams is synchronous in client components
@@ -40,6 +41,7 @@ export default function ProductPage() {
 
   return (
     <main className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
+      <Breadcrumbs />
       <div className='grid md:grid-cols-2 gap-12 items-start'>
         {/* Obraz */}
         <div className='relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden'>

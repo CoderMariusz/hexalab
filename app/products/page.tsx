@@ -45,18 +45,23 @@ export default function ProductsPage() {
       />
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-        {filtered.map((product: ProductType) => (
-          <ProductCard
-            key={product._id}
-            _id={product._id}
-            slug={product.slug}
-            name={product.name}
-            category={product.category}
-            price={product.price}
-            image={product.image}
-            description={product.description}
-          />
-        ))}
+        {filtered.map((product: ProductType) => {
+          console.log('Rendering product:', product);
+
+          return (
+            <ProductCard
+              key={product._id}
+              _id={product._id}
+              slug={product.slug}
+              name={product.name}
+              category={product.category}
+              price={product.price}
+              image={product.image}
+              description={product.description}
+              topSeller={product.topSeller || false}
+            />
+          );
+        })}
       </div>
       {filtered.length === 0 && (
         <p className='mt-8 text-center text-gray-500'>

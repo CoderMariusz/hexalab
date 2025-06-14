@@ -7,7 +7,8 @@ export const productsQuery = `*[_type == "product"]{
   description,
   price,
   "image": image.asset->url,
-  category
+  category,
+  topSeller
 }`;
 
 export async function fetchOrdersByEmail(email: string) {

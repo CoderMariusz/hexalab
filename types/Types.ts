@@ -6,6 +6,7 @@ export interface ProductType {
   price: number;
   image?: string;
   category?: string;
+  topSeller?: boolean;
 }
 
 export interface CheckoutItem {

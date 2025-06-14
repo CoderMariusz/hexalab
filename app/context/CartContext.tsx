@@ -52,7 +52,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const removeFromCart = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    setCart((prev) =>
+      prev.flatMap((item) => {
+        if (item.id !== id) return [item];
+
+        if (item.quantity > 1) {
+          return [{ ...item, quantity: item.quantity - 1 }];
+        }
+
+        return [];
+      })
+    );
   };
 
   const clearCart = () => {

@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { CheckoutItem } from '@/types/Types';
+import { saveOrderToSanity } from '@/lib/orderUtils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil'
@@ -9,6 +10,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const items = body.items;
+    await saveOrderToSanity(items);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
