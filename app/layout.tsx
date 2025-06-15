@@ -6,6 +6,7 @@ import Footer from '@/app/components/Footer';
 // app/layout.tsx
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
+import Nav from './components/Nav';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -26,6 +27,8 @@ export default function RootLayout({
         className={inter.className}>
         <body className='bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans'>
           <Navbar />
+          <Nav />
+
           {children}
 
           <Footer />

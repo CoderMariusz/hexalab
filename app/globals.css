@@ -2,7 +2,11 @@
 @import 'keen-slider/keen-slider.min.css';
 
 body {
+  height: auto;
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans, sans-serif);
+}
+html {
+  height: auto;
 }

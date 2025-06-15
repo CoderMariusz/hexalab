@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, UserRound, UserRoundCheck } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useCart } from '../context/CartContext';
 
@@ -10,7 +10,7 @@ export default function Navbar() {
   const { cart } = useCart();
   const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0);
   return (
-    <header className='w-full border-b shadow-sm'>
+    <header className='shadow-sm'>
       {/* Górna linia */}
       <div className='bg-white px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between max-w-7xl mx-auto'>
         {/* Logo */}
@@ -29,6 +29,22 @@ export default function Navbar() {
           />
         </div>
 
+        {session ? (
+          <div className='ml-6 h-full flex items-center gap-6'>
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className='text-red-600 hover:underline'>
+              <UserRoundCheck className='inline-block mr-1 w-5 h-5' />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => signIn('google', { callbackUrl: '/login' })}
+            className='text-blue-600 hover:underline'>
+            <UserRound className='inline-block mr-1 w-5 h-5' />
+          </button>
+        )}
+
         {/* Koszyk */}
         <Link
           href='/cart'
@@ -43,52 +59,6 @@ export default function Navbar() {
       </div>
 
       {/* Dolna linia */}
-      <nav className='bg-blue-400 text-blue-900 text-sm font-medium flex justify-center align-middle'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 py-2 items-center justify-between'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 py-2'>
-            <Link
-              href='/products'
-              className='hover:underline hover:text-blue-200 transition-colors'>
-              Products
-            </Link>
-            <Link
-              href='/contact'
-              className='hover:underline'>
-              Contact
-            </Link>
-            <Link
-              href='/about'
-              className='hover:underline'>
-              About
-            </Link>
-          </div>
-          {session ? (
-            <>
-              <Link
-                href='/orders'
-                className='hover:underline'>
-                Orders
-              </Link>
-              <Link
-                href='/profile'
-                className='hover:underline'>
-                Profile
-              </Link>
-              <button
-                onClick={() => signOut({ callbackUrl: '/' })}
-                className='text-red-600 hover:underline'>
-                Log out
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => signIn('google', { callbackUrl: '/login' })}
-              className='text-blue-600 hover:underline'>
-              Log in
-            </button>
-          )}
-        </div>
-      </nav>
     </header>
   );
 }

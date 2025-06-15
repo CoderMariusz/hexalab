@@ -46,32 +46,29 @@ export default function TopProducts() {
   }
 
   return (
-    <section className='justify-center items-center'>
-      <h2 className=' text-2xl font-bold mb-4 text-center'>Top Products</h2>
+    <section className='flex flex-col items-center justify-center w-full mb-12'>
+      <h2 className='text-2xl font-bold mb-6 text-center'>Top Products</h2>
+
       <div
         ref={sliderRef}
-        className='keen-slider items-center pr- m-auto max-w-4xl sm:px-9 lg:px-10 '>
-        {topProducts.map((product) => {
-          console.log('Rendering top product:', product.name);
-
-          return (
-            <div
-              className='keen-slider__slide max-w-56'
-              key={product._id}>
-              <ProductCard
-                key={product._id}
-                _id={product._id}
-                slug={product.slug}
-                name={product.name}
-                category={product.category}
-                price={product.price}
-                image={product.image}
-                description={product.description}
-                topSeller={product.topSeller || false}
-              />
-            </div>
-          );
-        })}
+        className='keen-slider w-full max-w-6xl px-4 sm:px-6 lg:px-8'>
+        {topProducts.map((product) => (
+          <div
+            className='keen-slider__slide px-2'
+            key={product._id}>
+            <ProductCard
+              key={product._id}
+              _id={product._id}
+              slug={product.slug}
+              name={product.name}
+              category={product.category}
+              price={product.price}
+              image={product.image}
+              description={product.description}
+              topSeller={product.topSeller || false}
+            />
+          </div>
+        ))}
       </div>
     </section>
   );
